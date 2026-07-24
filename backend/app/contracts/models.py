@@ -42,6 +42,7 @@ class Product(BaseModel):
 
 class PreferenceProfile(BaseModel):
     """Session-level learned preferences. Owned by P1, persisted by P4."""
+    user_name: Optional[str] = None
     budget_monthly_max: Optional[float] = None
     brands_viewed: list[str] = Field(default_factory=list)
     features_mentioned: list[str] = Field(default_factory=list)
@@ -58,6 +59,8 @@ class Intent(BaseModel):
     product_types: list[str] = Field(default_factory=list)  # explicit type ask -> HARD filter
     clarification_needed: bool = False
     clarification_question: Optional[str] = None
+    is_chitchat: bool = False            # True for greetings, introductions, small talk
+    chitchat_type: Optional[str] = None  # "greeting" | "introduction" | "smalltalk" | "thanks"
     profile: PreferenceProfile = Field(default_factory=PreferenceProfile)
 
 
